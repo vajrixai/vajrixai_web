@@ -30,6 +30,8 @@ steps:
       - --allow-unauthenticated
       - --port
       - "8080"
+      - --max-instances
+      - "3"
 
 images:
   - ${_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$SHORT_SHA

@@ -1,6 +1,5 @@
 substitutions:
-  _AR_REGION: asia-south1
-  _RUN_REGION: us-central1
+  _REGION: us-central1
   _SERVICE: vajrixai-web
 
 steps:
@@ -8,13 +7,13 @@ steps:
     args:
       - build
       - -t
-      - ${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID
       - .
 
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - ${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID
 
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
@@ -23,9 +22,9 @@ steps:
       - deploy
       - ${_SERVICE}
       - --image
-      - ${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID
       - --region
-      - ${_RUN_REGION}
+      - ${_REGION}
       - --platform
       - managed
       - --no-invoker-iam-check
@@ -35,4 +34,4 @@ steps:
       - "3"
 
 images:
-  - ${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/vajrixai-web/${_SERVICE}:$BUILD_ID

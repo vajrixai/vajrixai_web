@@ -27,7 +27,7 @@ steps:
       - ${_REGION}
       - --platform
       - managed
-      - --allow-unauthenticated
+      - --no-invoker-iam-check
       - --port
       - "8080"
       - --max-instances

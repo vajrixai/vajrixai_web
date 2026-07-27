@@ -3,8 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { industries } from "@/lib/data";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { IndustrySignalTerrain } from "@/components/ui/ai-field";
+import { IndustrySignalFlow } from "@/components/ui/ai-field";
 
 const patterns = [
   "group-hover:rotate-[1deg]",
@@ -18,14 +17,27 @@ export function Industries() {
 
   return (
     <section id="industries" className="section-pad relative overflow-hidden">
-      <IndustrySignalTerrain className="right-[2vw] top-8 hidden h-[430px] w-[min(68vw,1080px)] opacity-90 lg:block" />
       <div className="site-grid relative z-10">
-        <SectionHeading
-          eyebrow="Industries"
-          title="Fluent in complexity. Focused on your reality."
-          copy="Domain context changes everything. We learn the constraints, standards, and operating rhythms that make each industry distinct."
-          align="split"
-        />
+        <div className="grid items-center gap-10 border-t border-white/10 pt-6 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: .4 }}
+            transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <IndustrySignalFlow className="h-[260px] w-full lg:h-[320px]" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: .45 }}
+            transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="eyebrow">Industries</span>
+            <h2 className="section-title mt-7">Fluent in complexity. Focused on your reality.</h2>
+            <p className="section-copy mt-7">Domain context changes everything. We learn the constraints, standards, and operating rhythms that make each industry distinct.</p>
+          </motion.div>
+        </div>
 
         <div className="mt-12 grid gap-px overflow-hidden rounded-[28px] border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry, index) => (

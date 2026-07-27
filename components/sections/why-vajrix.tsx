@@ -24,11 +24,9 @@ function PartnershipCore() {
   ] as const;
 
   return (
-    <div className="pointer-events-none relative h-[190px] overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(120,221,255,.045)_1px,transparent_1px),linear-gradient(0deg,rgba(49,87,255,.045)_1px,transparent_1px)] bg-[size:38px_38px] opacity-45" />
-      <div className="absolute inset-y-0 left-[44%] w-[22%] bg-[#3157ff]/10 blur-3xl" />
+    <div className="pointer-events-none relative h-[190px] w-full overflow-visible lg:w-[175%]" aria-hidden="true">
       <motion.div
-        className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#78ddff]/[.07] to-transparent"
+        className="absolute inset-y-4 w-28 bg-gradient-to-r from-transparent via-[#78ddff]/[.055] to-transparent blur-sm"
         animate={{ left: ["-18%", "110%"] }}
         transition={{ duration: 4.8, repeat: Infinity, ease: "linear" }}
       />
@@ -111,7 +109,6 @@ function PartnershipCore() {
           )),
         )}
       </svg>
-      <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#3157ff]/[.08] to-transparent" />
     </div>
   );
 }
@@ -152,10 +149,10 @@ export function WhyVajrix() {
             transition={{ duration: .85 }}
             className="relative flex min-h-[500px] flex-col gap-3 lg:col-span-5 lg:h-full lg:min-h-0"
           >
-            <div className="relative shrink-0 overflow-hidden px-2">
+            <div className="relative z-0 shrink-0 overflow-visible px-2">
               <PartnershipCore />
             </div>
-            <div className="relative flex min-h-[250px] flex-1 flex-col overflow-hidden rounded-[22px] border border-white/[.09] bg-[#0b0d10] p-6">
+            <div className="relative z-10 flex min-h-[250px] flex-1 flex-col overflow-hidden rounded-[22px] border border-white/[.09] bg-[#0b0d10]/95 p-6 backdrop-blur-[2px]">
               <div aria-hidden="true" className="absolute -bottom-32 -right-24 h-[300px] w-[300px] rounded-full border border-[#3157ff]/20" />
               <div aria-hidden="true" className="absolute -bottom-8 right-4 h-[120px] w-[120px] rounded-full bg-[#9747ff]/10 blur-2xl" />
               <div className="relative flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/35">
@@ -171,7 +168,7 @@ export function WhyVajrix() {
             </div>
           </motion.div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+          <div className="relative z-10 grid gap-3 sm:grid-cols-2 lg:col-span-7">
             {visibleStrengths.map(([title, text], index) => (
               <motion.article
                 key={title}

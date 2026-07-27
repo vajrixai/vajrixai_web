@@ -13,7 +13,7 @@ function SystemVisual({ progress }: { progress: ReturnType<typeof useScroll>["sc
   const pathLength = useTransform(smooth, [0, 1], [.08, 1]);
 
   return (
-    <div className="relative aspect-square w-full max-w-[clamp(360px,40vh,470px)] overflow-hidden rounded-full border border-white/10 bg-[#0b0d10]">
+    <div className="relative aspect-square w-full max-w-[clamp(450px,55vh,660px)] overflow-hidden rounded-full border border-white/10 bg-[#0b0d10]/55 opacity-65">
       <div className="absolute inset-[12%] rounded-full border border-dashed border-white/10" />
       <motion.div style={{ rotate: rotateA }} className="absolute inset-[21%] rounded-full border border-[#3157ff]/30">
         <span className="absolute left-1/2 top-[-4px] h-2 w-2 -translate-x-1/2 rounded-full bg-[#c8efff] shadow-[0_0_24px_6px_rgba(72,109,255,.55)]" />
@@ -21,7 +21,7 @@ function SystemVisual({ progress }: { progress: ReturnType<typeof useScroll>["sc
       <motion.div style={{ rotate: rotateB }} className="absolute inset-[31%] rounded-full border border-dashed border-white/20">
         <span className="absolute bottom-[9%] right-[8%] h-1.5 w-1.5 rounded-full bg-white/80" />
       </motion.div>
-      <motion.div style={{ scale }} className="absolute inset-[40%] rounded-full border border-white/10 bg-gradient-to-br from-[#3157ff]/25 to-[#9747ff]/10 shadow-[0_0_90px_rgba(49,87,255,.22)]" />
+      <motion.div style={{ scale }} className="absolute inset-[40%] rounded-full border border-white/10 bg-gradient-to-br from-[#3157ff]/20 to-[#9747ff]/8 shadow-[0_0_90px_rgba(49,87,255,.2)]" />
       <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full -rotate-90" aria-hidden="true">
         <motion.circle cx="50" cy="50" r="47.5" fill="none" stroke="url(#capability-gradient)" strokeWidth=".45" style={{ pathLength }} />
         <defs>
@@ -32,12 +32,6 @@ function SystemVisual({ progress }: { progress: ReturnType<typeof useScroll>["sc
           </linearGradient>
         </defs>
       </svg>
-      <div className="absolute inset-0 grid place-items-center text-center">
-        <div>
-          <p className="font-mono text-[9px] uppercase tracking-[.2em] text-white/30">Vajrix system</p>
-          <p className="mt-2 text-sm font-medium tracking-[-.02em] text-white/70">Strategy → Scale</p>
-        </div>
-      </div>
     </div>
   );
 }
@@ -50,11 +44,11 @@ export function Capabilities() {
     <section ref={section} id="capabilities" className="section-pad relative border-y border-white/[.06] bg-[#0a0b0d]">
       <div className="site-grid">
         <div className="grid gap-20 lg:grid-cols-[.82fr_1.18fr]">
-          <div className="lg:sticky lg:top-24 lg:h-max">
-            <span className="eyebrow">Capabilities</span>
-            <h2 className="mt-7 max-w-[760px] text-[clamp(2.35rem,4.55vw,4.35rem)] font-medium leading-[.98] tracking-[-.055em] text-[#f7f8ff]">From the first signal to a system at scale.</h2>
-            <p className="section-copy mt-6">One connected practice for inventing, engineering, modernizing, and operating your next technology advantage.</p>
-            <div className="mt-7 hidden lg:block">
+          <div className="relative lg:sticky lg:top-24 lg:h-max">
+            <span className="eyebrow relative z-10">Capabilities</span>
+            <h2 className="relative z-10 mt-7 max-w-[820px] text-[clamp(2.7rem,5.15vw,5rem)] font-medium leading-[.98] tracking-[-.055em] text-[#f7f8ff]">From the first signal to a system at scale.</h2>
+            <p className="relative z-10 mt-6 max-w-[650px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.75] text-[#a3a9b8]">One connected practice for inventing, engineering, modernizing, and operating your next technology advantage.</p>
+            <div className="pointer-events-none -mt-16 hidden lg:block">
               <SystemVisual progress={scrollYProgress} />
             </div>
           </div>

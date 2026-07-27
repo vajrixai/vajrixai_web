@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { strengths } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { AIField } from "@/components/ui/ai-field";
 
 export function WhyVajrix() {
   return (
-    <section id="why" className="section-pad relative">
-      <div className="site-grid">
+    <section id="why" className="section-pad relative overflow-hidden">
+      <AIField className="right-[5vw] top-14 hidden h-[360px] w-[min(62vw,940px)] opacity-70 lg:block" />
+      <div className="site-grid relative z-10">
         <SectionHeading
           eyebrow="Why Vajrix AI"
           title="Built to be the technology partner you keep."
@@ -16,7 +18,7 @@ export function WhyVajrix() {
           align="split"
         />
 
-        <div className="mt-20 grid gap-3 lg:grid-cols-12">
+        <div className="mt-12 grid gap-3 lg:grid-cols-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

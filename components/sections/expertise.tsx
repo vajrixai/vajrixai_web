@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { MouseEvent } from "react";
 import { expertise } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { AIField } from "@/components/ui/ai-field";
 
 function ExpertiseCard({ item, index }: { item: (typeof expertise)[number]; index: number }) {
   const reduced = useReducedMotion();
@@ -50,15 +51,16 @@ function ExpertiseCard({ item, index }: { item: (typeof expertise)[number]; inde
 
 export function Expertise() {
   return (
-    <section id="expertise" className="section-pad relative border-y border-white/[.06] bg-[#0a0b0d]">
+    <section id="expertise" className="section-pad relative overflow-hidden border-y border-white/[.06] bg-[#0a0b0d]">
       <div aria-hidden="true" className="absolute inset-0 [background-image:radial-gradient(circle_at_12%_20%,rgba(92,105,255,.06),transparent_24%),radial-gradient(circle_at_90%_80%,rgba(145,97,255,.05),transparent_25%)]" />
+      <AIField className="right-[2vw] top-20 hidden h-[330px] w-[min(54vw,820px)] opacity-65 lg:block" />
       <div className="site-grid relative">
         <SectionHeading
           eyebrow="Expertise"
           title="Depth where technology matters most."
           copy="We assemble the right mix of intelligence, product thinking, engineering, and infrastructure around each challenge."
         />
-        <div className="mt-20 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-14 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {expertise.map((item, index) => <ExpertiseCard key={item.title} item={item} index={index} />)}
         </div>
       </div>

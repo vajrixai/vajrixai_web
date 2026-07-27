@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { industries } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { AIField } from "@/components/ui/ai-field";
 
 const patterns = [
   "group-hover:rotate-[1deg]",
@@ -16,8 +17,9 @@ export function Industries() {
   const reduced = useReducedMotion();
 
   return (
-    <section id="industries" className="section-pad">
-      <div className="site-grid">
+    <section id="industries" className="section-pad relative overflow-hidden">
+      <AIField className="right-[4vw] top-16 hidden h-[360px] w-[min(62vw,960px)] opacity-80 lg:block" />
+      <div className="site-grid relative z-10">
         <SectionHeading
           eyebrow="Industries"
           title="Fluent in complexity. Focused on your reality."
@@ -25,7 +27,7 @@ export function Industries() {
           align="split"
         />
 
-        <div className="mt-20 grid gap-px overflow-hidden rounded-[28px] border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-[28px] border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry, index) => (
             <motion.article
               key={industry.name}

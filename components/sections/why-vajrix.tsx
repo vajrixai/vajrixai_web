@@ -5,52 +5,64 @@ import { Check } from "lucide-react";
 import { strengths } from "@/lib/data";
 import { DecisionMatrixField } from "@/components/ui/ai-field";
 
-const coreRings = [0, 1, 2] as const;
-const coreNodes = Array.from({ length: 14 }, (_, index) => index);
+const coreRings = [0, 1, 2, 3] as const;
+const coreNodes = Array.from({ length: 22 }, (_, index) => index);
 const visibleStrengths = strengths.slice(0, 6);
 
 function PartnershipCore() {
   return (
-    <div className="pointer-events-none absolute inset-x-5 top-16 h-[180px] overflow-hidden rounded-[22px] border border-white/[.06] bg-white/[.012]" aria-hidden="true">
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(120,221,255,.05)_1px,transparent_1px),linear-gradient(0deg,rgba(49,87,255,.055)_1px,transparent_1px)] bg-[size:42px_42px] opacity-50" />
-      <div className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3157ff]/12 blur-2xl" />
+    <div className="pointer-events-none absolute inset-x-5 top-14 h-[200px] overflow-hidden rounded-[22px] border border-white/[.06] bg-white/[.012]" aria-hidden="true">
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(120,221,255,.05)_1px,transparent_1px),linear-gradient(0deg,rgba(49,87,255,.055)_1px,transparent_1px)] bg-[size:34px_34px] opacity-55" />
+      <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3157ff]/14 blur-2xl" />
+      <motion.div
+        className="absolute left-[8%] top-1/2 h-px w-[84%] origin-center bg-gradient-to-r from-transparent via-[#78ddff]/70 to-transparent"
+        animate={{ rotate: [0, 180, 360], opacity: [.2, .78, .2] }}
+        transition={{ duration: 6.5, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute left-1/2 top-[10%] h-[80%] w-px origin-center bg-gradient-to-b from-transparent via-[#9747ff]/55 to-transparent"
+        animate={{ rotate: [90, -90, -270], opacity: [.14, .58, .14] }}
+        transition={{ duration: 8.5, repeat: Infinity, ease: "linear" }}
+      />
       {coreRings.map((ring) => (
         <motion.div
           key={ring}
           className="absolute left-1/2 top-1/2 rounded-full border border-[#4b72ff]/25"
           style={{
-            height: `${92 + ring * 54}px`,
-            width: `${92 + ring * 54}px`,
-            marginLeft: `${-(92 + ring * 54) / 2}px`,
-            marginTop: `${-(92 + ring * 54) / 2}px`,
+            height: `${64 + ring * 42}px`,
+            width: `${64 + ring * 42}px`,
+            marginLeft: `${-(64 + ring * 42) / 2}px`,
+            marginTop: `${-(64 + ring * 42) / 2}px`,
           }}
-          animate={{ rotate: ring % 2 ? -360 : 360, scale: [1, 1.06, 1] }}
+          animate={{ rotate: ring % 2 ? -360 : 360, scale: [1, 1.08, 1] }}
           transition={{
-            rotate: { duration: 18 + ring * 8, repeat: Infinity, ease: "linear" },
+            rotate: { duration: 14 + ring * 6, repeat: Infinity, ease: "linear" },
             scale: { duration: 3.8 + ring * .5, repeat: Infinity, ease: "easeInOut" },
           }}
         />
       ))}
+      <motion.div
+        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[#78ddff]/22 bg-[#090a0c]/70 shadow-[0_0_40px_rgba(49,87,255,.18)] backdrop-blur"
+        animate={{ rotate: [0, 90, 180, 270, 360], borderRadius: ["22px", "999px", "22px"] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
       {coreNodes.map((node) => (
         <motion.span
           key={node}
           className="absolute h-1.5 w-1.5 rounded-full bg-[#c8efff] shadow-[0_0_18px_5px_rgba(120,221,255,.24)]"
           style={{
-            left: `${12 + (node * 19) % 78}%`,
-            top: `${16 + (node * 31) % 68}%`,
+            left: `${8 + (node * 17) % 84}%`,
+            top: `${12 + (node * 29) % 76}%`,
           }}
-          animate={{ opacity: [.16, .92, .16], scale: [.7, 1.45, .7] }}
-          transition={{ duration: 2.8 + (node % 5) * .22, repeat: Infinity, ease: "easeInOut", delay: node * .11 }}
+          animate={{ opacity: [.1, .92, .1], scale: [.55, 1.65, .55], x: [0, node % 2 ? 8 : -8, 0] }}
+          transition={{ duration: 2.5 + (node % 6) * .2, repeat: Infinity, ease: "easeInOut", delay: node * .08 }}
         />
       ))}
       <motion.div
-        className="absolute left-[12%] right-[12%] top-1/2 h-px bg-gradient-to-r from-transparent via-[#78ddff]/65 to-transparent"
-        animate={{ x: ["-12%", "12%", "-12%"], opacity: [.16, .7, .16] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-0 left-0 h-16 w-full bg-gradient-to-t from-[#3157ff]/10 to-transparent"
+        animate={{ opacity: [.08, .26, .08] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl border border-white/10 bg-[#090a0c]/75 backdrop-blur">
-        <span className="font-mono text-[9px] uppercase tracking-[.18em] text-white/35">system</span>
-      </div>
     </div>
   );
 }

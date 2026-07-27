@@ -40,7 +40,7 @@ export function SiteHeader() {
             <a
               key={href}
               href={href}
-              className={`rounded-full px-3 py-2 text-[12px] transition-all hover:bg-white/[.05] hover:text-white ${href === "#top" ? "bg-white/[.055] text-white/80" : "text-white/48"}`}
+              className={`rounded-full px-3 py-2 text-[14px] font-medium transition-all hover:bg-white/[.05] hover:text-white ${href === "#top" ? "bg-white/[.055] text-white/80" : "text-white/48"}`}
             >
               {label}
             </a>

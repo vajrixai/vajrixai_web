@@ -29,9 +29,6 @@ export const industries = [
   { name: "Education", code: "06", line: "Systems built around progress." },
   { name: "Real Estate", code: "07", line: "Sharper assets and operations." },
   { name: "Energy", code: "08", line: "Resilience for critical systems." },
-  { name: "Telecommunications", code: "09", line: "Networks that think ahead." },
-  { name: "Government", code: "10", line: "Public systems, responsibly modernized." },
-  { name: "Technology", code: "11", line: "Build the platform behind growth." },
 ] as const;
 
 export const capabilities = [

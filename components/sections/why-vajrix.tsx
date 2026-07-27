@@ -5,64 +5,113 @@ import { Check } from "lucide-react";
 import { strengths } from "@/lib/data";
 import { DecisionMatrixField } from "@/components/ui/ai-field";
 
-const coreRings = [0, 1, 2, 3] as const;
-const coreNodes = Array.from({ length: 22 }, (_, index) => index);
 const visibleStrengths = strengths.slice(0, 6);
 
 function PartnershipCore() {
+  const layers = [
+    [[10, 25], [10, 50], [10, 75]],
+    [[30, 16], [30, 39], [30, 62], [30, 84]],
+    [[52, 28], [52, 50], [52, 72]],
+    [[74, 16], [74, 39], [74, 62], [74, 84]],
+    [[94, 30], [94, 50], [94, 70]],
+  ] as const;
+  const routes = [
+    "M 10 25 C 18 25, 21 16, 30 16 S 43 28, 52 28 S 65 16, 74 16 S 86 30, 94 30",
+    "M 10 50 C 18 50, 21 39, 30 39 S 43 50, 52 50 S 65 39, 74 39 S 86 50, 94 50",
+    "M 10 75 C 18 75, 21 84, 30 84 S 43 72, 52 72 S 65 84, 74 84 S 86 70, 94 70",
+    "M 10 25 C 18 25, 21 62, 30 62 S 43 28, 52 28 S 65 62, 74 62 S 86 50, 94 50",
+    "M 10 75 C 18 75, 21 39, 30 39 S 43 72, 52 72 S 65 39, 74 39 S 86 30, 94 30",
+  ] as const;
+
   return (
     <div className="pointer-events-none absolute inset-x-5 top-14 h-[200px] overflow-hidden rounded-[22px] border border-white/[.06] bg-white/[.012]" aria-hidden="true">
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(120,221,255,.05)_1px,transparent_1px),linear-gradient(0deg,rgba(49,87,255,.055)_1px,transparent_1px)] bg-[size:34px_34px] opacity-55" />
-      <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3157ff]/14 blur-2xl" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(120,221,255,.045)_1px,transparent_1px),linear-gradient(0deg,rgba(49,87,255,.045)_1px,transparent_1px)] bg-[size:38px_38px] opacity-45" />
+      <div className="absolute inset-y-0 left-[44%] w-[22%] bg-[#3157ff]/10 blur-3xl" />
       <motion.div
-        className="absolute left-[8%] top-1/2 h-px w-[84%] origin-center bg-gradient-to-r from-transparent via-[#78ddff]/70 to-transparent"
-        animate={{ rotate: [0, 180, 360], opacity: [.2, .78, .2] }}
-        transition={{ duration: 6.5, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-[#78ddff]/[.07] to-transparent"
+        animate={{ left: ["-18%", "110%"] }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: "linear" }}
       />
-      <motion.div
-        className="absolute left-1/2 top-[10%] h-[80%] w-px origin-center bg-gradient-to-b from-transparent via-[#9747ff]/55 to-transparent"
-        animate={{ rotate: [90, -90, -270], opacity: [.14, .58, .14] }}
-        transition={{ duration: 8.5, repeat: Infinity, ease: "linear" }}
-      />
-      {coreRings.map((ring) => (
-        <motion.div
-          key={ring}
-          className="absolute left-1/2 top-1/2 rounded-full border border-[#4b72ff]/25"
-          style={{
-            height: `${64 + ring * 42}px`,
-            width: `${64 + ring * 42}px`,
-            marginLeft: `${-(64 + ring * 42) / 2}px`,
-            marginTop: `${-(64 + ring * 42) / 2}px`,
-          }}
-          animate={{ rotate: ring % 2 ? -360 : 360, scale: [1, 1.08, 1] }}
-          transition={{
-            rotate: { duration: 14 + ring * 6, repeat: Infinity, ease: "linear" },
-            scale: { duration: 3.8 + ring * .5, repeat: Infinity, ease: "easeInOut" },
-          }}
-        />
-      ))}
-      <motion.div
-        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[#78ddff]/22 bg-[#090a0c]/70 shadow-[0_0_40px_rgba(49,87,255,.18)] backdrop-blur"
-        animate={{ rotate: [0, 90, 180, 270, 360], borderRadius: ["22px", "999px", "22px"] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {coreNodes.map((node) => (
-        <motion.span
-          key={node}
-          className="absolute h-1.5 w-1.5 rounded-full bg-[#c8efff] shadow-[0_0_18px_5px_rgba(120,221,255,.24)]"
-          style={{
-            left: `${8 + (node * 17) % 84}%`,
-            top: `${12 + (node * 29) % 76}%`,
-          }}
-          animate={{ opacity: [.1, .92, .1], scale: [.55, 1.65, .55], x: [0, node % 2 ? 8 : -8, 0] }}
-          transition={{ duration: 2.5 + (node % 6) * .2, repeat: Infinity, ease: "easeInOut", delay: node * .08 }}
-        />
-      ))}
-      <motion.div
-        className="absolute bottom-0 left-0 h-16 w-full bg-gradient-to-t from-[#3157ff]/10 to-transparent"
-        animate={{ opacity: [.08, .26, .08] }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-      />
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 104 100" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="neural-route" x1="0" x2="1">
+            <stop offset="0" stopColor="#3157ff" stopOpacity=".08" />
+            <stop offset=".5" stopColor="#78ddff" stopOpacity=".5" />
+            <stop offset="1" stopColor="#9747ff" stopOpacity=".12" />
+          </linearGradient>
+          <filter id="neural-glow" x="-200%" y="-200%" width="400%" height="400%">
+            <feGaussianBlur stdDeviation="1.3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {routes.map((route, index) => (
+          <motion.path
+            key={route}
+            d={route}
+            fill="none"
+            stroke="url(#neural-route)"
+            strokeWidth={index === 1 ? .55 : .3}
+            vectorEffect="non-scaling-stroke"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: [0, 1, 1], opacity: [.05, .72, .18] }}
+            transition={{ duration: 3.6, delay: index * .38, repeat: Infinity, repeatDelay: 1.2 }}
+          />
+        ))}
+
+        {routes.map((route, index) => (
+          <circle key={`signal-${route}`} r={index === 1 ? 1.15 : .75} fill={index % 2 ? "#78ddff" : "#8b6cff"} filter="url(#neural-glow)">
+            <animateMotion
+              dur={`${3.4 + index * .45}s`}
+              begin={`${index * .55}s`}
+              repeatCount="indefinite"
+              path={route}
+            />
+          </circle>
+        ))}
+
+        {layers.flatMap((layer, layerIndex) =>
+          layer.map(([x, y], nodeIndex) => (
+            <motion.g
+              key={`${x}-${y}`}
+              initial={{ opacity: .25 }}
+              animate={{ opacity: [.25, 1, .25] }}
+              transition={{
+                duration: 2.4,
+                delay: layerIndex * .28 + nodeIndex * .16,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <rect
+                x={x - 1.35}
+                y={y - 2.7}
+                width="2.7"
+                height="5.4"
+                rx=".8"
+                fill="#090b10"
+                stroke={layerIndex === 2 ? "#78ddff" : "#4268ff"}
+                strokeOpacity={layerIndex === 2 ? .75 : .4}
+                strokeWidth=".35"
+                vectorEffect="non-scaling-stroke"
+              />
+              <rect
+                x={x - .45}
+                y={y - .9}
+                width=".9"
+                height="1.8"
+                rx=".3"
+                fill={layerIndex === 2 ? "#c8efff" : "#657eff"}
+                filter="url(#neural-glow)"
+              />
+            </motion.g>
+          )),
+        )}
+      </svg>
+      <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#3157ff]/[.08] to-transparent" />
     </div>
   );
 }

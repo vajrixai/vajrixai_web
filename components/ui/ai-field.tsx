@@ -6,80 +6,138 @@ type VisualProps = {
   className?: string;
 };
 
-const industryNodes = [
-  [70, 188],
-  [168, 92],
-  [292, 148],
-  [412, 66],
-  [538, 168],
-  [680, 112],
-  [758, 242],
-  [498, 278],
-  [276, 256],
-] as const;
-
 const tensorCells = Array.from({ length: 24 }, (_, index) => index);
 const decisionCells = Array.from({ length: 42 }, (_, index) => index);
+const terrainRows = Array.from({ length: 9 }, (_, index) => index);
+const terrainColumns = Array.from({ length: 15 }, (_, index) => index);
 
-export function IndustryIntelligenceMap({ className = "" }: VisualProps) {
+function terrainY(row: number, column: number, phase: number) {
+  const perspective = 70 + row * row * 3.5;
+  const wave = Math.sin(column * .72 + row * .58 + phase) * (3 + row * 1.25);
+  const ridge = Math.cos(column * .34 - row * .8 + phase * .7) * (2 + row * .7);
+  return perspective + wave + ridge;
+}
+
+function terrainRowPath(row: number, phase: number) {
+  return terrainColumns.map((column) => {
+    const x = 36 + column * 60;
+    const y = terrainY(row, column, phase);
+    return `${column === 0 ? "M" : "L"} ${x} ${y}`;
+  }).join(" ");
+}
+
+function terrainColumnPath(column: number, phase: number) {
+  return terrainRows.map((row) => {
+    const spread = (column - 7) * (1 + row * .045);
+    const x = 456 + spread * 60;
+    const y = terrainY(row, column, phase);
+    return `${row === 0 ? "M" : "L"} ${x} ${y}`;
+  }).join(" ");
+}
+
+export function IndustrySignalTerrain({ className = "" }: VisualProps) {
+  const signalPath = terrainRowPath(5, 1.2);
+
   return (
     <div className={`pointer-events-none absolute overflow-hidden ${className}`} aria-hidden="true">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_58%_45%,rgba(49,87,255,.16),transparent_38%),radial-gradient(circle_at_18%_70%,rgba(120,221,255,.08),transparent_30%)]" />
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 820 340" fill="none" preserveAspectRatio="none">
-        <motion.path
-          d="M70 188 C146 72 220 88 292 148 C365 209 398 88 412 66 C494 90 498 196 538 168 C610 116 646 90 680 112 C722 144 716 218 758 242 C650 322 584 300 498 278 C382 248 336 290 276 256 C204 224 160 184 70 188Z"
-          stroke="url(#industry-map-glow)"
-          strokeWidth="1.2"
-          strokeDasharray="8 11"
-          animate={{ strokeDashoffset: [0, -190] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.path
-          d="M70 188 L292 148 L538 168 L758 242 M168 92 L412 66 L680 112 M276 256 L498 278"
-          stroke="rgba(120,221,255,.18)"
-          strokeWidth="1"
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: false, amount: .35 }}
-          transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
-        />
-        {industryNodes.map(([cx, cy], index) => (
-          <motion.g key={`${cx}-${cy}`} style={{ transformOrigin: `${cx}px ${cy}px` }}>
-            <motion.circle
-              cx={cx}
-              cy={cy}
-              r={index % 3 === 0 ? 21 : 14}
-              stroke={index % 2 ? "#3157ff" : "#78ddff"}
-              strokeWidth=".7"
-              fill="rgba(9,10,12,.7)"
-              animate={{ scale: [1, 1.26, 1], opacity: [.26, .62, .26] }}
-              transition={{ duration: 3.4 + index * .16, repeat: Infinity, ease: "easeInOut", delay: index * .18 }}
-            />
-            <circle cx={cx} cy={cy} r="3.5" fill={index % 2 ? "#78ddff" : "#f7f8ff"} />
-          </motion.g>
-        ))}
+      <div className="absolute inset-x-[8%] bottom-[4%] h-[58%] bg-[#3157ff]/10 blur-3xl [clip-path:polygon(50%_0,100%_100%,0_100%)]" />
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 912 360" fill="none" preserveAspectRatio="none">
         <defs>
-          <linearGradient id="industry-map-glow" x1="70" y1="188" x2="758" y2="242">
-            <stop stopColor="#78ddff" />
-            <stop offset=".48" stopColor="#3157ff" />
-            <stop offset="1" stopColor="#9747ff" />
+          <linearGradient id="terrain-line" x1="40" y1="0" x2="870" y2="0">
+            <stop stopColor="#3157ff" stopOpacity="0" />
+            <stop offset=".28" stopColor="#3157ff" stopOpacity=".38" />
+            <stop offset=".58" stopColor="#78ddff" stopOpacity=".7" />
+            <stop offset="1" stopColor="#9747ff" stopOpacity="0" />
           </linearGradient>
+          <linearGradient id="terrain-scan" x1="0" y1="0" x2="1" y2="0">
+            <stop stopColor="#78ddff" stopOpacity="0" />
+            <stop offset=".48" stopColor="#78ddff" stopOpacity=".18" />
+            <stop offset=".52" stopColor="#f7f8ff" stopOpacity=".72" />
+            <stop offset="1" stopColor="#3157ff" stopOpacity="0" />
+          </linearGradient>
+          <filter id="terrain-glow" x="-200%" y="-200%" width="400%" height="400%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
+
+        {terrainRows.map((row) => (
+          <motion.path
+            key={`terrain-row-${row}`}
+            d={terrainRowPath(row, 0)}
+            animate={{
+              d: [
+                terrainRowPath(row, 0),
+                terrainRowPath(row, 2.1),
+                terrainRowPath(row, 4.2),
+                terrainRowPath(row, 0),
+              ],
+            }}
+            stroke="url(#terrain-line)"
+            strokeWidth={row === 6 ? "1.15" : ".65"}
+            opacity={.22 + row * .065}
+            vectorEffect="non-scaling-stroke"
+            transition={{ duration: 10 + row * .45, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+
+        {terrainColumns.map((column) => (
+          <motion.path
+            key={`terrain-column-${column}`}
+            d={terrainColumnPath(column, 0)}
+            animate={{
+              d: [
+                terrainColumnPath(column, 0),
+                terrainColumnPath(column, 2.1),
+                terrainColumnPath(column, 4.2),
+                terrainColumnPath(column, 0),
+              ],
+            }}
+            stroke="#5273ff"
+            strokeWidth=".55"
+            opacity={column % 2 ? .17 : .28}
+            vectorEffect="non-scaling-stroke"
+            transition={{ duration: 10 + (column % 4) * .6, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+
+        <motion.polygon
+          points="-170,60 10,60 300,354 120,354"
+          fill="url(#terrain-scan)"
+          animate={{ x: [-80, 980] }}
+          transition={{ duration: 5.4, repeat: Infinity, ease: "linear", repeatDelay: .7 }}
+        />
+
+        {[238, 456, 694].map((x, index) => {
+          const baseY = 250 + index * 17;
+          const peakY = 102 - index * 13;
+          return (
+            <motion.g
+              key={x}
+              animate={{ opacity: [.24, 1, .24] }}
+              transition={{ duration: 2.7 + index * .6, repeat: Infinity, ease: "easeInOut", delay: index * .5 }}
+            >
+              <line x1={x} y1={baseY} x2={x} y2={peakY} stroke={index === 1 ? "#78ddff" : "#6a62ff"} strokeWidth="1" opacity=".55" />
+              <circle cx={x} cy={peakY} r="4.5" fill={index === 1 ? "#c8efff" : "#9d7cff"} filter="url(#terrain-glow)" />
+              <circle cx={x} cy={baseY} r="3" fill="#78ddff" opacity=".65" />
+            </motion.g>
+          );
+        })}
+
+        {[0, 1, 2].map((signal) => (
+          <circle key={signal} r={signal === 1 ? "3.4" : "2.3"} fill={signal === 1 ? "#c8efff" : "#8871ff"} filter="url(#terrain-glow)">
+            <animateMotion
+              dur={`${5.8 + signal * 1.15}s`}
+              begin={`${signal * 1.4}s`}
+              repeatCount="indefinite"
+              path={signalPath}
+            />
+          </circle>
+        ))}
       </svg>
-      <motion.div
-        className="absolute left-[18%] top-[18%] rounded-full border border-white/10 bg-[#090a0c]/70 px-3 py-1 font-mono text-[10px] uppercase tracking-[.18em] text-white/34 backdrop-blur"
-        animate={{ x: [0, 18, 0], opacity: [.3, .72, .3] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-      >
-        domain graph
-      </motion.div>
-      <motion.div
-        className="absolute bottom-[18%] right-[13%] rounded-full border border-[#3157ff]/25 bg-[#090a0c]/70 px-3 py-1 font-mono text-[10px] uppercase tracking-[.18em] text-[#9ee8ff]/60 backdrop-blur"
-        animate={{ x: [0, -16, 0], opacity: [.28, .66, .28] }}
-        transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: .6 }}
-      >
-        constraints
-      </motion.div>
     </div>
   );
 }

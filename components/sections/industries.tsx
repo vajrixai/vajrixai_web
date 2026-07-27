@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { industries } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { IndustryIntelligenceMap } from "@/components/ui/ai-field";
+import { IndustrySignalTerrain } from "@/components/ui/ai-field";
 
 const patterns = [
   "group-hover:rotate-[1deg]",
@@ -18,7 +18,7 @@ export function Industries() {
 
   return (
     <section id="industries" className="section-pad relative overflow-hidden">
-      <IndustryIntelligenceMap className="right-[4vw] top-16 hidden h-[360px] w-[min(62vw,960px)] opacity-85 lg:block" />
+      <IndustrySignalTerrain className="right-[2vw] top-8 hidden h-[430px] w-[min(68vw,1080px)] opacity-90 lg:block" />
       <div className="site-grid relative z-10">
         <SectionHeading
           eyebrow="Industries"

@@ -1,20 +1,11 @@
 import {
-  Activity,
-  Blocks,
   Bot,
   BrainCircuit,
   Building2,
   ChartNoAxesCombined,
   CloudCog,
   Code2,
-  Cpu,
-  DatabaseZap,
-  FlaskConical,
-  GitMerge,
-  Lightbulb,
-  Network,
   RefreshCw,
-  Settings2,
   Workflow,
 } from "lucide-react";
 
@@ -25,17 +16,8 @@ export const expertise = [
   { title: "Digital Transformation", desc: "Technology modernization aligned to how your business actually works.", icon: RefreshCw },
   { title: "Enterprise Solutions", desc: "Secure, governed platforms for complex organizational demands.", icon: Building2 },
   { title: "Software Development", desc: "Purpose-built software engineered for clarity and longevity.", icon: Code2 },
-  { title: "Product Engineering", desc: "From product thesis to resilient, market-ready digital experiences.", icon: Blocks },
   { title: "Data & Analytics", desc: "Connected data foundations that turn information into action.", icon: ChartNoAxesCombined },
   { title: "Cloud Solutions", desc: "Flexible cloud systems designed for performance and control.", icon: CloudCog },
-  { title: "Business Process Optimization", desc: "Lean, observable processes that continuously improve.", icon: Settings2 },
-  { title: "System Integration", desc: "Coherent digital operations across tools, teams, and data.", icon: GitMerge },
-  { title: "Custom Technology Solutions", desc: "Bespoke systems for challenges that off-the-shelf cannot solve.", icon: Lightbulb },
-  { title: "Platform Development", desc: "Composable foundations that enable products, partners, and growth.", icon: Cpu },
-  { title: "Scalable Infrastructure", desc: "Reliable architecture that performs under real-world pressure.", icon: Network },
-  { title: "Research & Innovation", desc: "Structured experimentation that turns possibility into advantage.", icon: FlaskConical },
-  { title: "Emerging Technologies", desc: "Practical evaluation and adoption of the next useful frontier.", icon: DatabaseZap },
-  { title: "Technology Consulting", desc: "Senior technical perspective for high-consequence decisions.", icon: Activity },
 ] as const;
 
 export const industries = [

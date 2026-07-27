@@ -1,53 +1,101 @@
 "use client";
 
+import { Canvas, useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion";
+import { Suspense, useMemo, useRef } from "react";
+import type { Group } from "three";
 import { technologies } from "@/lib/data";
-import { SectionHeading } from "@/components/ui/section-heading";
 
 const allTech = Object.values(technologies).flat();
 const topRow = allTech.slice(0, 17);
 const bottomRow = allTech.slice(13);
 
-const signalNodes = [
-  "left-[11%] top-[28%]",
-  "left-[26%] top-[62%]",
-  "left-[42%] top-[38%]",
-  "left-[58%] top-[68%]",
-  "left-[73%] top-[30%]",
-  "left-[88%] top-[54%]",
-] as const;
+function NeuralCore() {
+  const core = useRef<Group>(null);
+  const mesh = useRef<Group>(null);
+  const nodes = useMemo(
+    () => [
+      [-1.7, .65, .1],
+      [-.85, 1.15, -.45],
+      [.1, .78, .38],
+      [1.08, 1.0, -.18],
+      [1.7, .42, .22],
+      [-1.35, -.32, -.38],
+      [-.35, -.82, .34],
+      [.72, -.52, -.28],
+      [1.45, -.85, .18],
+    ] as const,
+    [],
+  );
 
-function TechSignalField() {
+  useFrame((state, delta) => {
+    if (core.current) {
+      core.current.rotation.y += delta * .18;
+      core.current.rotation.x = Math.sin(state.clock.elapsedTime * .32) * .14;
+    }
+    if (mesh.current) {
+      mesh.current.rotation.z -= delta * .08;
+    }
+  });
+
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-16 hidden h-[420px] overflow-hidden lg:block" aria-hidden="true">
-      <motion.div
-        className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#3157ff]/18"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 46, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/10"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 64, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute left-[18%] right-[16%] top-1/2 h-px bg-gradient-to-r from-transparent via-[#4b72ff]/45 to-transparent"
-        animate={{ opacity: [.18, .55, .18], scaleX: [.8, 1, .8] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute left-[25%] right-[24%] top-[37%] h-px origin-left rotate-[16deg] bg-gradient-to-r from-transparent via-[#78ddff]/30 to-transparent"
-        animate={{ opacity: [.1, .4, .1], scaleX: [.7, 1, .7] }}
-        transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut", delay: .8 }}
-      />
-      {signalNodes.map((position, index) => (
-        <motion.span
-          key={position}
-          className={`absolute ${position} h-2 w-2 rounded-full bg-[#9ee8ff] shadow-[0_0_28px_7px_rgba(75,114,255,.36)]`}
-          animate={{ opacity: [.25, 1, .25], scale: [.75, 1.4, .75] }}
-          transition={{ duration: 3.2 + index * .35, repeat: Infinity, ease: "easeInOut", delay: index * .28 }}
-        />
+    <group ref={core} rotation={[.18, -.35, 0]} scale={1.05}>
+      <group ref={mesh}>
+        <mesh>
+          <icosahedronGeometry args={[1.28, 1]} />
+          <meshBasicMaterial color="#3157ff" wireframe transparent opacity={.24} />
+        </mesh>
+        <mesh rotation={[1.2, .2, .4]}>
+          <torusGeometry args={[1.92, .01, 12, 160]} />
+          <meshBasicMaterial color="#78ddff" transparent opacity={.42} />
+        </mesh>
+        <mesh rotation={[.4, 1.25, -.2]}>
+          <torusGeometry args={[2.18, .008, 12, 160]} />
+          <meshBasicMaterial color="#9747ff" transparent opacity={.28} />
+        </mesh>
+      </group>
+
+      {nodes.map(([x, y, z], index) => (
+        <mesh key={`${x}-${y}-${z}`} position={[x, y, z]}>
+          <sphereGeometry args={[index % 3 === 0 ? .055 : .04, 18, 18]} />
+          <meshBasicMaterial color={index % 2 ? "#9ee8ff" : "#ffffff"} transparent opacity={index % 2 ? .9 : .72} />
+        </mesh>
       ))}
+
+      {nodes.slice(0, -1).map(([x, y, z], index) => {
+        const [toX, toY, toZ] = nodes[index + 1];
+        const midX = (x + toX) / 2;
+        const midY = (y + toY) / 2;
+        const midZ = (z + toZ) / 2;
+        const dx = toX - x;
+        const dy = toY - y;
+        const dz = toZ - z;
+        const length = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+        return (
+          <mesh key={`link-${index}`} position={[midX, midY, midZ]} rotation={[Math.PI / 2, 0, Math.atan2(dy, dx)]}>
+            <cylinderGeometry args={[.006, .006, length, 8]} />
+            <meshBasicMaterial color="#4b72ff" transparent opacity={.26} />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+}
+
+function TechAICanvas() {
+  return (
+    <div className="relative h-[300px] overflow-hidden lg:h-[330px]">
+      <div className="absolute inset-x-[8%] bottom-6 h-px bg-gradient-to-r from-transparent via-[#4b72ff]/50 to-transparent" />
+      <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3157ff]/10 blur-3xl" />
+      <Canvas camera={{ position: [0, 0, 5.8], fov: 42 }} dpr={[1, 1.5]}>
+        <Suspense fallback={null}>
+          <ambientLight intensity={1.2} />
+          <pointLight position={[3, 3, 4]} intensity={18} color="#78ddff" />
+          <pointLight position={[-3, -2, 3]} intensity={14} color="#9747ff" />
+          <NeuralCore />
+        </Suspense>
+      </Canvas>
     </div>
   );
 }
@@ -71,24 +119,41 @@ function Marquee({ items, reverse = false }: { items: readonly string[]; reverse
 export function TechnologyStack() {
   return (
     <section id="technology" className="section-pad relative overflow-hidden">
-      <TechSignalField />
-      <div className="site-grid relative z-10">
-        <div className="tech-stack-heading">
-          <SectionHeading
-            eyebrow="Technology Stack"
-            title="Modern where it counts. Proven where it matters."
-            copy="We choose technology for fit, not fashion - balancing velocity today with operability tomorrow."
-            align="split"
-          />
+      <div className="site-grid">
+        <div className="grid gap-8 border-t border-white/10 pt-6 lg:grid-cols-[.9fr_1.1fr] lg:items-start lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: .5 }}
+            transition={{ duration: .75, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="eyebrow">Technology Stack</span>
+            <h2 className="mt-7 max-w-[760px] text-[clamp(2.65rem,5.35vw,5.2rem)] font-medium leading-[.98] tracking-[-.055em] text-[#f7f8ff]">
+              Modern where it counts. Proven where it matters.
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: .45 }}
+            transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
+          >
+            <TechAICanvas />
+            <p className="-mt-4 max-w-[650px] text-[clamp(1.05rem,1.5vw,1.28rem)] leading-[1.75] text-[#a3a9b8]">
+              We choose technology for fit, not fashion - balancing velocity today with operability tomorrow.
+            </p>
+          </motion.div>
         </div>
       </div>
 
-      <div className="relative z-10 mt-20 space-y-3">
+      <div className="relative z-10 mt-12 space-y-3">
         <Marquee items={topRow} />
         <Marquee items={bottomRow} reverse />
       </div>
 
-      <div className="site-grid relative z-10 mt-20 grid gap-px overflow-hidden rounded-[24px] border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="site-grid relative z-10 mt-16 grid gap-px overflow-hidden rounded-[24px] border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
         {Object.entries(technologies).map(([category, items], index) => (
           <motion.div
             key={category}

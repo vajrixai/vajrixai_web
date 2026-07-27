@@ -150,22 +150,22 @@ export function WhyVajrix() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: .3 }}
             transition={{ duration: .85 }}
-            className="relative flex flex-col gap-3 lg:col-span-5"
+            className="relative flex min-h-[500px] flex-col overflow-hidden rounded-[22px] border border-white/[.09] bg-[#0b0d10] p-6 lg:col-span-5 lg:h-full lg:min-h-0"
           >
-            <div className="relative overflow-hidden px-2 pt-2">
-              <div className="mb-3 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/35">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#78ddff]" />
-                Partnership model
-              </div>
+            <div aria-hidden="true" className="absolute -bottom-32 -right-24 h-[300px] w-[300px] rounded-full border border-[#3157ff]/20" />
+            <div aria-hidden="true" className="absolute -bottom-8 right-4 h-[120px] w-[120px] rounded-full bg-[#9747ff]/10 blur-2xl" />
+            <div className="relative flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/35">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#78ddff]" />
+              Partnership model
+            </div>
+            <div className="relative -mx-2 mt-3">
               <PartnershipCore />
             </div>
-            <div className="relative min-h-[166px] overflow-hidden rounded-[22px] border border-white/[.09] bg-[#0b0d10] p-6">
-              <div aria-hidden="true" className="absolute -bottom-32 -right-24 h-[300px] w-[300px] rounded-full border border-[#3157ff]/20" />
-              <div aria-hidden="true" className="absolute -bottom-8 right-4 h-[120px] w-[120px] rounded-full bg-[#9747ff]/10 blur-2xl" />
-              <p className="relative text-[clamp(1.65rem,2.55vw,2.5rem)] font-[430] leading-[1.02] tracking-[-.05em]">
+            <div className="relative mt-auto pt-6">
+              <p className="text-[clamp(1.65rem,2.55vw,2.5rem)] font-[430] leading-[1.02] tracking-[-.05em]">
                 Think deeply. <span className="text-white/35">Build precisely.</span><br />Stay accountable.
               </p>
-              <p className="relative mt-4 max-w-md text-sm leading-6 text-white/42">From the boardroom to the codebase, the same standard of care holds.</p>
+              <p className="mt-4 max-w-md text-sm leading-6 text-white/42">From the boardroom to the codebase, the same standard of care holds.</p>
             </div>
           </motion.div>
 

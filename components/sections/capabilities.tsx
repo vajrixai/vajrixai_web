@@ -13,7 +13,7 @@ function SystemVisual({ progress }: { progress: ReturnType<typeof useScroll>["sc
   const pathLength = useTransform(smooth, [0, 1], [.08, 1]);
 
   return (
-    <div className="relative aspect-square w-full max-w-[clamp(320px,36vh,430px)] overflow-hidden rounded-full border border-white/10 bg-[#0b0d10]">
+    <div className="relative aspect-square w-full max-w-[clamp(360px,40vh,470px)] overflow-hidden rounded-full border border-white/10 bg-[#0b0d10]">
       <div className="absolute inset-[12%] rounded-full border border-dashed border-white/10" />
       <motion.div style={{ rotate: rotateA }} className="absolute inset-[21%] rounded-full border border-[#3157ff]/30">
         <span className="absolute left-1/2 top-[-4px] h-2 w-2 -translate-x-1/2 rounded-full bg-[#c8efff] shadow-[0_0_24px_6px_rgba(72,109,255,.55)]" />
@@ -52,9 +52,9 @@ export function Capabilities() {
         <div className="grid gap-20 lg:grid-cols-[.82fr_1.18fr]">
           <div className="lg:sticky lg:top-24 lg:h-max">
             <span className="eyebrow">Capabilities</span>
-            <h2 className="section-title">From the first signal to a system at scale.</h2>
-            <p className="section-copy mt-7">One connected practice for inventing, engineering, modernizing, and operating your next technology advantage.</p>
-            <div className="mt-8 hidden lg:block">
+            <h2 className="mt-7 max-w-[760px] text-[clamp(2.35rem,4.55vw,4.35rem)] font-medium leading-[.98] tracking-[-.055em] text-[#f7f8ff]">From the first signal to a system at scale.</h2>
+            <p className="section-copy mt-6">One connected practice for inventing, engineering, modernizing, and operating your next technology advantage.</p>
+            <div className="mt-7 hidden lg:block">
               <SystemVisual progress={scrollYProgress} />
             </div>
           </div>

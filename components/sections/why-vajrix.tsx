@@ -6,112 +6,7 @@ import { strengths } from "@/lib/data";
 import { DecisionMatrixField } from "@/components/ui/ai-field";
 
 const visibleStrengths = strengths.slice(0, 6);
-
-function PartnershipCore() {
-  const layers = [
-    [[10, 25], [10, 50], [10, 75]],
-    [[30, 16], [30, 39], [30, 62], [30, 84]],
-    [[52, 28], [52, 50], [52, 72]],
-    [[74, 16], [74, 39], [74, 62], [74, 84]],
-    [[94, 30], [94, 50], [94, 70]],
-  ] as const;
-  const routes = [
-    "M 10 25 C 18 25, 21 16, 30 16 S 43 28, 52 28 S 65 16, 74 16 S 86 30, 94 30",
-    "M 10 50 C 18 50, 21 39, 30 39 S 43 50, 52 50 S 65 39, 74 39 S 86 50, 94 50",
-    "M 10 75 C 18 75, 21 84, 30 84 S 43 72, 52 72 S 65 84, 74 84 S 86 70, 94 70",
-    "M 10 25 C 18 25, 21 62, 30 62 S 43 28, 52 28 S 65 62, 74 62 S 86 50, 94 50",
-    "M 10 75 C 18 75, 21 39, 30 39 S 43 72, 52 72 S 65 39, 74 39 S 86 30, 94 30",
-  ] as const;
-
-  return (
-    <div className="pointer-events-none relative h-[190px] w-full overflow-visible lg:w-[175%]" aria-hidden="true">
-      <motion.div
-        className="absolute inset-y-4 w-28 bg-gradient-to-r from-transparent via-[#78ddff]/[.055] to-transparent blur-sm"
-        animate={{ left: ["-18%", "110%"] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: "linear" }}
-      />
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 104 100" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="neural-route" x1="0" x2="1">
-            <stop offset="0" stopColor="#3157ff" stopOpacity=".08" />
-            <stop offset=".5" stopColor="#78ddff" stopOpacity=".5" />
-            <stop offset="1" stopColor="#9747ff" stopOpacity=".12" />
-          </linearGradient>
-          <filter id="neural-glow" x="-200%" y="-200%" width="400%" height="400%">
-            <feGaussianBlur stdDeviation="1.3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        {routes.map((route, index) => (
-          <motion.path
-            key={route}
-            d={route}
-            fill="none"
-            stroke="url(#neural-route)"
-            strokeWidth={index === 1 ? .55 : .3}
-            vectorEffect="non-scaling-stroke"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: [0, 1, 1], opacity: [.05, .72, .18] }}
-            transition={{ duration: 3.6, delay: index * .38, repeat: Infinity, repeatDelay: 1.2 }}
-          />
-        ))}
-
-        {routes.map((route, index) => (
-          <circle key={`signal-${route}`} r={index === 1 ? 1.15 : .75} fill={index % 2 ? "#78ddff" : "#8b6cff"} filter="url(#neural-glow)">
-            <animateMotion
-              dur={`${3.4 + index * .45}s`}
-              begin={`${index * .55}s`}
-              repeatCount="indefinite"
-              path={route}
-            />
-          </circle>
-        ))}
-
-        {layers.flatMap((layer, layerIndex) =>
-          layer.map(([x, y], nodeIndex) => (
-            <motion.g
-              key={`${x}-${y}`}
-              initial={{ opacity: .25 }}
-              animate={{ opacity: [.25, 1, .25] }}
-              transition={{
-                duration: 2.4,
-                delay: layerIndex * .28 + nodeIndex * .16,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <rect
-                x={x - 1.35}
-                y={y - 2.7}
-                width="2.7"
-                height="5.4"
-                rx=".8"
-                fill="#090b10"
-                stroke={layerIndex === 2 ? "#78ddff" : "#4268ff"}
-                strokeOpacity={layerIndex === 2 ? .75 : .4}
-                strokeWidth=".35"
-                vectorEffect="non-scaling-stroke"
-              />
-              <rect
-                x={x - .45}
-                y={y - .9}
-                width=".9"
-                height="1.8"
-                rx=".3"
-                fill={layerIndex === 2 ? "#c8efff" : "#657eff"}
-                filter="url(#neural-glow)"
-              />
-            </motion.g>
-          )),
-        )}
-      </svg>
-    </div>
-  );
-}
+const additionalStrength = strengths[6];
 
 export function WhyVajrix() {
   return (
@@ -147,12 +42,9 @@ export function WhyVajrix() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: .3 }}
             transition={{ duration: .85 }}
-            className="relative flex min-h-[500px] flex-col gap-3 lg:col-span-5 lg:h-full lg:min-h-0"
+            className="relative grid min-h-[500px] gap-3 lg:col-span-5 lg:h-full lg:min-h-0 lg:grid-rows-[1.45fr_1fr]"
           >
-            <div className="relative z-0 shrink-0 overflow-visible px-2">
-              <PartnershipCore />
-            </div>
-            <div className="relative z-10 flex min-h-[250px] flex-1 flex-col overflow-hidden rounded-[22px] border border-white/[.09] bg-[#0b0d10]/95 p-6 backdrop-blur-[2px]">
+            <div className="relative flex min-h-[250px] flex-col overflow-hidden rounded-[22px] border border-white/[.09] bg-[#0b0d10]/95 p-6">
               <div aria-hidden="true" className="absolute -bottom-32 -right-24 h-[300px] w-[300px] rounded-full border border-[#3157ff]/20" />
               <div aria-hidden="true" className="absolute -bottom-8 right-4 h-[120px] w-[120px] rounded-full bg-[#9747ff]/10 blur-2xl" />
               <div className="relative flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/35">
@@ -166,9 +58,17 @@ export function WhyVajrix() {
                 <p className="mt-4 max-w-md text-sm leading-6 text-white/42">From the boardroom to the codebase, the same standard of care holds.</p>
               </div>
             </div>
+            <article className="group relative min-h-[166px] overflow-hidden rounded-[22px] border border-white/[.09] bg-white/[.016] p-6 transition-all duration-500 hover:border-white/15 hover:bg-white/[.035]">
+              <div aria-hidden="true" className="absolute -bottom-24 -right-20 h-56 w-56 rounded-full border border-[#3157ff]/15" />
+              <div className="relative grid h-7 w-7 place-items-center rounded-full border border-[#3157ff]/40 text-[#78ddff] transition-colors group-hover:bg-[#3157ff] group-hover:text-white">
+                <Check aria-hidden="true" className="h-3 w-3" />
+              </div>
+              <h3 className="relative mt-7 text-base font-medium tracking-[-.03em]">{additionalStrength[0]}</h3>
+              <p className="relative mt-2 text-sm leading-6 text-white/40">{additionalStrength[1]}</p>
+            </article>
           </motion.div>
 
-          <div className="relative z-10 grid gap-3 sm:grid-cols-2 lg:col-span-7">
+          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
             {visibleStrengths.map(([title, text], index) => (
               <motion.article
                 key={title}

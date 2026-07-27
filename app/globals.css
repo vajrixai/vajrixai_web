@@ -210,6 +210,15 @@ button:focus-visible {
   animation-duration: 38s;
 }
 
+.tech-stack-heading .section-title {
+  max-width: 900px;
+  font-size: clamp(2.7rem, 5.75vw, 5.45rem);
+}
+
+.tech-stack-heading .section-copy {
+  font-size: clamp(1.08rem, 1.55vw, 1.32rem);
+}
+
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }

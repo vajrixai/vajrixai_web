@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { MouseEvent } from "react";
 import { expertise } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { ExpertiseNeuralBurst } from "@/components/ui/ai-field";
+import { ExpertiseTensorStack } from "@/components/ui/ai-field";
 
 function ExpertiseCard({ item, index }: { item: (typeof expertise)[number]; index: number }) {
   const reduced = useReducedMotion();
@@ -53,7 +53,7 @@ export function Expertise() {
   return (
     <section id="expertise" className="section-pad relative overflow-hidden border-y border-white/[.06] bg-[#0a0b0d]">
       <div aria-hidden="true" className="absolute inset-0 [background-image:radial-gradient(circle_at_12%_20%,rgba(92,105,255,.06),transparent_24%),radial-gradient(circle_at_90%_80%,rgba(145,97,255,.05),transparent_25%)]" />
-      <ExpertiseNeuralBurst className="right-[5vw] top-16 hidden h-[360px] w-[min(50vw,760px)] opacity-75 lg:block" />
+      <ExpertiseTensorStack className="right-[4vw] top-10 hidden h-[390px] w-[min(52vw,800px)] opacity-80 lg:block" />
       <div className="site-grid relative">
         <SectionHeading
           eyebrow="Expertise"

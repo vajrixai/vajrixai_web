@@ -7,10 +7,11 @@ import { DecisionMatrixField } from "@/components/ui/ai-field";
 
 const coreRings = [0, 1, 2] as const;
 const coreNodes = Array.from({ length: 14 }, (_, index) => index);
+const visibleStrengths = strengths.slice(0, 6);
 
 function PartnershipCore() {
   return (
-    <div className="pointer-events-none absolute inset-x-6 top-20 h-[230px] overflow-hidden rounded-[22px] border border-white/[.06] bg-white/[.012]" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-x-5 top-16 h-[180px] overflow-hidden rounded-[22px] border border-white/[.06] bg-white/[.012]" aria-hidden="true">
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(120,221,255,.05)_1px,transparent_1px),linear-gradient(0deg,rgba(49,87,255,.055)_1px,transparent_1px)] bg-[size:42px_42px] opacity-50" />
       <div className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3157ff]/12 blur-2xl" />
       {coreRings.map((ring) => (
@@ -88,7 +89,7 @@ export function WhyVajrix() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: .3 }}
             transition={{ duration: .85 }}
-            className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0b0d10] p-8 lg:col-span-5 lg:p-10"
+            className="relative min-h-[350px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0b0d10] p-7 lg:col-span-5 lg:p-8"
           >
             <div aria-hidden="true" className="absolute -bottom-28 -right-28 h-[420px] w-[420px] rounded-full border border-white/[.07]" />
             <div aria-hidden="true" className="absolute -bottom-10 -right-10 h-[280px] w-[280px] rounded-full border border-[#3157ff]/30" />
@@ -100,27 +101,27 @@ export function WhyVajrix() {
                 Partnership model
               </div>
               <div>
-                <p className="text-[clamp(1.9rem,3.5vw,3.45rem)] font-[430] leading-[.98] tracking-[-.055em]">Think deeply.<br /><span className="text-white/35">Build precisely.</span><br />Stay accountable.</p>
-                <p className="mt-7 max-w-sm leading-7 text-white/42">From the boardroom to the codebase, the same standard of care holds.</p>
+                <p className="text-[clamp(1.75rem,3.15vw,3.05rem)] font-[430] leading-[.98] tracking-[-.055em]">Think deeply.<br /><span className="text-white/35">Build precisely.</span><br />Stay accountable.</p>
+                <p className="mt-5 max-w-sm text-sm leading-6 text-white/42">From the boardroom to the codebase, the same standard of care holds.</p>
               </div>
             </div>
           </motion.div>
 
           <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
-            {strengths.map(([title, text], index) => (
+            {visibleStrengths.map(([title, text], index) => (
               <motion.article
                 key={title}
                 initial={{ opacity: 0, rotateY: index % 2 ? -8 : 8 }}
                 whileInView={{ opacity: 1, rotateY: 0 }}
                 viewport={{ once: true, amount: .55 }}
                 transition={{ duration: .7, delay: (index % 2) * .08 }}
-                className="group min-h-[230px] rounded-[24px] border border-white/[.09] bg-white/[.016] p-7 transition-all duration-500 hover:border-white/15 hover:bg-white/[.035]"
+                className="group min-h-[166px] rounded-[22px] border border-white/[.09] bg-white/[.016] p-6 transition-all duration-500 hover:border-white/15 hover:bg-white/[.035]"
               >
-                <div className="grid h-8 w-8 place-items-center rounded-full border border-[#3157ff]/40 text-[#78ddff] transition-colors group-hover:bg-[#3157ff] group-hover:text-white">
-                  <Check aria-hidden="true" className="h-3.5 w-3.5" />
+                <div className="grid h-7 w-7 place-items-center rounded-full border border-[#3157ff]/40 text-[#78ddff] transition-colors group-hover:bg-[#3157ff] group-hover:text-white">
+                  <Check aria-hidden="true" className="h-3 w-3" />
                 </div>
-                <h3 className="mt-10 text-lg font-medium tracking-[-.03em]">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/40">{text}</p>
+                <h3 className="mt-7 text-base font-medium tracking-[-.03em]">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/40">{text}</p>
               </motion.article>
             ))}
           </div>

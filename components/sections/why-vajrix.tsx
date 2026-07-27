@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { strengths } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { AIField } from "@/components/ui/ai-field";
+import { DecisionMatrixField } from "@/components/ui/ai-field";
 
 export function WhyVajrix() {
   return (
     <section id="why" className="section-pad relative overflow-hidden">
-      <AIField className="right-[5vw] top-14 hidden h-[360px] w-[min(62vw,940px)] opacity-70 lg:block" />
+      <DecisionMatrixField className="right-[5vw] top-14 hidden h-[360px] w-[min(62vw,940px)] opacity-80 lg:block" />
       <div className="site-grid relative z-10">
         <SectionHeading
           eyebrow="Why Vajrix AI"

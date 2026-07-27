@@ -24,7 +24,7 @@ function PartnershipCore() {
   ] as const;
 
   return (
-    <div className="pointer-events-none absolute inset-x-5 top-14 h-[200px] overflow-hidden rounded-[22px] border border-white/[.06] bg-white/[.012]" aria-hidden="true">
+    <div className="pointer-events-none relative h-[190px] overflow-hidden" aria-hidden="true">
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(120,221,255,.045)_1px,transparent_1px),linear-gradient(0deg,rgba(49,87,255,.045)_1px,transparent_1px)] bg-[size:38px_38px] opacity-45" />
       <div className="absolute inset-y-0 left-[44%] w-[22%] bg-[#3157ff]/10 blur-3xl" />
       <motion.div
@@ -150,21 +150,22 @@ export function WhyVajrix() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: .3 }}
             transition={{ duration: .85 }}
-            className="relative min-h-[350px] overflow-hidden rounded-[28px] border border-white/10 bg-[#0b0d10] p-7 lg:col-span-5 lg:p-8"
+            className="relative flex flex-col gap-3 lg:col-span-5"
           >
-            <div aria-hidden="true" className="absolute -bottom-28 -right-28 h-[420px] w-[420px] rounded-full border border-white/[.07]" />
-            <div aria-hidden="true" className="absolute -bottom-10 -right-10 h-[280px] w-[280px] rounded-full border border-[#3157ff]/30" />
-            <div aria-hidden="true" className="absolute bottom-20 right-20 h-[105px] w-[105px] rounded-full bg-[#9747ff]/15 blur-xl" />
-            <PartnershipCore />
-            <div className="relative flex h-full flex-col justify-between">
-              <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/35">
+            <div className="relative overflow-hidden px-2 pt-2">
+              <div className="mb-3 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-white/35">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#78ddff]" />
                 Partnership model
               </div>
-              <div>
-                <p className="text-[clamp(1.75rem,3.15vw,3.05rem)] font-[430] leading-[.98] tracking-[-.055em]">Think deeply.<br /><span className="text-white/35">Build precisely.</span><br />Stay accountable.</p>
-                <p className="mt-5 max-w-sm text-sm leading-6 text-white/42">From the boardroom to the codebase, the same standard of care holds.</p>
-              </div>
+              <PartnershipCore />
+            </div>
+            <div className="relative min-h-[166px] overflow-hidden rounded-[22px] border border-white/[.09] bg-[#0b0d10] p-6">
+              <div aria-hidden="true" className="absolute -bottom-32 -right-24 h-[300px] w-[300px] rounded-full border border-[#3157ff]/20" />
+              <div aria-hidden="true" className="absolute -bottom-8 right-4 h-[120px] w-[120px] rounded-full bg-[#9747ff]/10 blur-2xl" />
+              <p className="relative text-[clamp(1.65rem,2.55vw,2.5rem)] font-[430] leading-[1.02] tracking-[-.05em]">
+                Think deeply. <span className="text-white/35">Build precisely.</span><br />Stay accountable.
+              </p>
+              <p className="relative mt-4 max-w-md text-sm leading-6 text-white/42">From the boardroom to the codebase, the same standard of care holds.</p>
             </div>
           </motion.div>
 

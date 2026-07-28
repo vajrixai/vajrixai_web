@@ -1,5 +1,6 @@
 "use client";
 
+import { Line } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import { Suspense, useMemo, useRef } from "react";
@@ -15,15 +16,15 @@ function NeuralCore() {
   const mesh = useRef<Group>(null);
   const nodes = useMemo(
     () => [
-      [-1.7, .65, .1],
-      [-.85, 1.15, -.45],
+      [-1.05, .4, .06],
+      [-.63, .86, -.33],
       [.1, .78, .38],
-      [1.08, 1.0, -.18],
-      [1.7, .42, .22],
-      [-1.35, -.32, -.38],
+      [.82, .76, -.14],
+      [1.07, .26, .14],
+      [-1.04, -.25, -.29],
       [-.35, -.82, .34],
       [.72, -.52, -.28],
-      [1.45, -.85, .18],
+      [.96, -.56, .12],
     ] as const,
     [],
   );
@@ -39,18 +40,18 @@ function NeuralCore() {
   });
 
   return (
-    <group ref={core} rotation={[.18, -.35, 0]} scale={1.05}>
+    <group ref={core} rotation={[.18, -.35, 0]} scale={1.12}>
       <group ref={mesh}>
         <mesh>
           <icosahedronGeometry args={[1.28, 1]} />
           <meshBasicMaterial color="#3157ff" wireframe transparent opacity={.24} />
         </mesh>
         <mesh rotation={[1.2, .2, .4]}>
-          <torusGeometry args={[1.92, .01, 12, 160]} />
+          <torusGeometry args={[1.72, .01, 12, 160]} />
           <meshBasicMaterial color="#78ddff" transparent opacity={.42} />
         </mesh>
         <mesh rotation={[.4, 1.25, -.2]}>
-          <torusGeometry args={[2.18, .008, 12, 160]} />
+          <torusGeometry args={[1.95, .008, 12, 160]} />
           <meshBasicMaterial color="#9747ff" transparent opacity={.28} />
         </mesh>
       </group>
@@ -64,19 +65,17 @@ function NeuralCore() {
 
       {nodes.slice(0, -1).map(([x, y, z], index) => {
         const [toX, toY, toZ] = nodes[index + 1];
-        const midX = (x + toX) / 2;
-        const midY = (y + toY) / 2;
-        const midZ = (z + toZ) / 2;
-        const dx = toX - x;
-        const dy = toY - y;
-        const dz = toZ - z;
-        const length = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
         return (
-          <mesh key={`link-${index}`} position={[midX, midY, midZ]} rotation={[Math.PI / 2, 0, Math.atan2(dy, dx)]}>
-            <cylinderGeometry args={[.006, .006, length, 8]} />
-            <meshBasicMaterial color="#4b72ff" transparent opacity={.26} />
-          </mesh>
+          <Line
+            key={`link-${index}`}
+            points={[[x, y, z], [toX, toY, toZ]]}
+            color="#4b72ff"
+            lineWidth={.7}
+            transparent
+            opacity={.26}
+            depthWrite={false}
+          />
         );
       })}
     </group>
@@ -85,10 +84,9 @@ function NeuralCore() {
 
 function TechAICanvas() {
   return (
-    <div className="relative h-[300px] overflow-hidden lg:h-[330px]">
-      <div className="absolute inset-x-[8%] bottom-6 h-px bg-gradient-to-r from-transparent via-[#4b72ff]/50 to-transparent" />
+    <div className="relative h-[370px] overflow-hidden lg:h-[420px]">
       <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3157ff]/10 blur-3xl" />
-      <Canvas camera={{ position: [0, 0, 5.8], fov: 42 }} dpr={[1, 1.5]}>
+      <Canvas camera={{ position: [0, 0, 5.9], fov: 42 }} dpr={[1, 1.5]}>
         <Suspense fallback={null}>
           <ambientLight intensity={1.2} />
           <pointLight position={[3, 3, 4]} intensity={18} color="#78ddff" />
@@ -131,6 +129,9 @@ export function TechnologyStack() {
             <h2 className="mt-7 max-w-[760px] text-[clamp(2.65rem,5.35vw,5.2rem)] font-medium leading-[.98] tracking-[-.055em] text-[#f7f8ff]">
               Modern where it counts. Proven where it matters.
             </h2>
+            <p className="mt-7 max-w-[650px] text-[clamp(1.05rem,1.5vw,1.28rem)] leading-[1.75] text-[#a3a9b8]">
+              We choose technology for fit, not fashion - balancing velocity today with operability tomorrow.
+            </p>
           </motion.div>
 
           <motion.div
@@ -141,9 +142,6 @@ export function TechnologyStack() {
             className="relative"
           >
             <TechAICanvas />
-            <p className="-mt-4 max-w-[650px] text-[clamp(1.05rem,1.5vw,1.28rem)] leading-[1.75] text-[#a3a9b8]">
-              We choose technology for fit, not fashion - balancing velocity today with operability tomorrow.
-            </p>
           </motion.div>
         </div>
       </div>

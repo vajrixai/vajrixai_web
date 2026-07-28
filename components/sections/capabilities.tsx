@@ -48,7 +48,7 @@ export function Capabilities() {
             <span className="eyebrow relative z-10">Capabilities</span>
             <h2 className="relative z-10 mt-7 max-w-[820px] text-[clamp(2.7rem,5.15vw,5rem)] font-medium leading-[.98] tracking-[-.055em] text-[#f7f8ff]">From the first signal to a system at scale.</h2>
             <p className="relative z-10 mt-6 max-w-[650px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.75] text-[#a3a9b8]">One connected practice for inventing, engineering, modernizing, and operating your next technology advantage.</p>
-            <div className="pointer-events-none -mt-16 hidden lg:block">
+            <div className="pointer-events-none -mt-40 hidden lg:block">
               <SystemVisual progress={scrollYProgress} />
             </div>
           </div>

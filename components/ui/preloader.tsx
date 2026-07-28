@@ -3,8 +3,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const markPath =
-  "M613 1032L1756 2880C1835 3004 1960 3093 2110 3094C2260 3095 2380 3027 2461 2940L3321 1474L2779 1467C2664 1467 2594 1518 2521 1631L2122 2283L1506 1245C1416 1095 1304 1030 1196 1030L613 1032Z";
+const vajrixLetters = [..."VAJRIX"];
+const aiLetters = [..."AI"];
 
 export function Preloader() {
   const reducedMotion = useReducedMotion();
@@ -26,7 +26,7 @@ export function Preloader() {
 
     const timer = window.setTimeout(
       () => setVisible(false),
-      reducedMotion ? 650 : 2350,
+      reducedMotion ? 650 : 2500,
     );
 
     return () => {
@@ -60,116 +60,84 @@ export function Preloader() {
             initial={{ opacity: 0, scale: 0.65 }}
             animate={
               reducedMotion
-                ? { opacity: 0.22, scale: 1 }
-                : { opacity: [0, 0.34, 0.18], scale: [0.65, 1.08, 1] }
+                ? { opacity: 0.2, scale: 1 }
+                : {
+                    opacity: [0, 0.32, 0.14],
+                    scale: [0.65, 1.1, 1],
+                    rotate: [0, 4, 0],
+                  }
             }
-            transition={{ duration: 1.8, ease: "easeOut" }}
-            className="absolute h-[min(72vw,560px)] w-[min(72vw,560px)] rounded-full bg-[radial-gradient(circle,rgba(49,87,255,.22),rgba(151,71,255,.06)_42%,transparent_70%)] blur-2xl"
+            transition={{ duration: 2.1, ease: "easeOut" }}
+            className="absolute h-[min(72vw,560px)] w-[min(72vw,560px)] rounded-full bg-[radial-gradient(circle,rgba(49,87,255,.2),rgba(151,71,255,.055)_42%,transparent_70%)] blur-2xl"
           />
 
-          <div className="relative flex flex-col items-center">
-            <motion.svg
-              viewBox="500 850 3000 2400"
-              role="img"
-              aria-label="Vajrix AI symbol"
-              initial={reducedMotion ? false : { scale: 0.88, rotate: -2 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[clamp(150px,18vw,245px)] overflow-visible"
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, scale: .965 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: .45, ease: "easeOut" }}
+            className="relative flex w-full flex-col items-center px-6 [perspective:900px]"
+          >
+            <div
+              aria-label="Vajrix AI"
+              className="font-orbitron flex items-baseline gap-[.12em] whitespace-nowrap text-[clamp(1.35rem,4.2vw,3.5rem)] uppercase leading-none text-[#f7f9ff]"
             >
-              <defs>
-                <linearGradient
-                  id="preloader-mark-gradient"
-                  x1="600"
-                  y1="1050"
-                  x2="3320"
-                  y2="1550"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop offset="0%" stopColor="#e7f8ff" />
-                  <stop offset="25%" stopColor="#83bdff" />
-                  <stop offset="52%" stopColor="#2855ff" />
-                  <stop offset="76%" stopColor="#1428ff" />
-                  <stop offset="100%" stopColor="#8c37ff" />
-                </linearGradient>
-                <linearGradient id="preloader-dot-gradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#d9f4ff" />
-                  <stop offset="48%" stopColor="#4d82ff" />
-                  <stop offset="100%" stopColor="#641cff" />
-                </linearGradient>
-                <linearGradient id="preloader-sheen" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="transparent" />
-                  <stop offset="50%" stopColor="white" stopOpacity=".85" />
-                  <stop offset="100%" stopColor="transparent" />
-                </linearGradient>
-                <filter id="preloader-glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="42" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <mask id="preloader-reveal">
-                  <motion.rect
-                    x="450"
-                    y="800"
-                    height="2500"
-                    fill="white"
-                    initial={{ width: reducedMotion ? 3100 : 0 }}
-                    animate={{ width: 3100 }}
-                    transition={{ duration: 0.95, delay: 0.28, ease: [0.65, 0, 0.35, 1] }}
-                  />
-                </mask>
-                <clipPath id="preloader-mark-clip">
-                  <path d={markPath} />
-                </clipPath>
-              </defs>
+              <span aria-hidden="true" className="inline-flex gap-[.09em]">
+                {vajrixLetters.map((letter, index) => (
+                  <span key={`${letter}-${index}`} className="inline-block overflow-hidden pb-[.1em]">
+                    <motion.span
+                      className="inline-block"
+                      initial={
+                        reducedMotion
+                          ? false
+                          : { y: "118%", rotateX: -78, opacity: 0, filter: "blur(10px)" }
+                      }
+                      animate={{ y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" }}
+                      transition={{
+                        duration: .72,
+                        delay: .12 + index * .075,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    >
+                      {letter}
+                    </motion.span>
+                  </span>
+                ))}
+              </span>
 
-              {!reducedMotion && (
-                <motion.path
-                  d={markPath}
-                  fill="none"
-                  stroke="#87d9ff"
-                  strokeWidth="12"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: [0, 0.9, 0.18] }}
-                  transition={{ pathLength: { duration: 1.05, ease: "easeInOut" }, opacity: { duration: 1.4 } }}
-                />
-              )}
+              <span aria-hidden="true" className="ml-[.16em] inline-flex gap-[.09em]">
+                {aiLetters.map((letter, index) => (
+                  <span key={`${letter}-${index}`} className="inline-block overflow-hidden pb-[.1em]">
+                    <motion.span
+                      className="brand-gradient-text inline-block"
+                      initial={
+                        reducedMotion
+                          ? false
+                          : { y: "118%", rotateX: -78, opacity: 0, filter: "blur(10px)" }
+                      }
+                      animate={{ y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" }}
+                      transition={{
+                        duration: .78,
+                        delay: .62 + index * .09,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    >
+                      {letter}
+                    </motion.span>
+                  </span>
+                ))}
+              </span>
+            </div>
 
-              <path
-                d={markPath}
-                fill="url(#preloader-mark-gradient)"
-                mask="url(#preloader-reveal)"
-                filter="url(#preloader-glow)"
+            {!reducedMotion && (
+              <motion.div
+                aria-hidden="true"
+                initial={{ opacity: 0, scaleX: .7 }}
+                animate={{ opacity: [0, .5, 0], scaleX: [0.7, 1.04, 1.12] }}
+                transition={{ duration: 1.35, delay: .78, ease: "easeOut" }}
+                className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-[min(86vw,820px)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse,rgba(77,104,255,.16),transparent_68%)] blur-xl"
               />
-
-              {!reducedMotion && (
-                <motion.rect
-                  y="900"
-                  width="560"
-                  height="2300"
-                  fill="url(#preloader-sheen)"
-                  clipPath="url(#preloader-mark-clip)"
-                  initial={{ x: 100, skewX: -16, opacity: 0 }}
-                  animate={{ x: 3500, opacity: [0, 0.8, 0] }}
-                  transition={{ duration: 0.9, delay: 0.92, ease: [0.45, 0, 0.55, 1] }}
-                />
-              )}
-
-              <motion.circle
-                cx="3131"
-                cy="1198"
-                r="154"
-                fill="url(#preloader-dot-gradient)"
-                filter="url(#preloader-glow)"
-                initial={reducedMotion ? false : { opacity: 0, scale: 0, y: -180 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.88 }}
-                style={{ transformOrigin: "3131px 1198px" }}
-              />
-            </motion.svg>
-          </div>
+            )}
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

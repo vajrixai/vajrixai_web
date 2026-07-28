@@ -17,7 +17,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Vajrix AI",
   url: "https://vajrix.ai",
-  email: "hello@vajrix.ai",
+  email: "team@vajrixai.in",
   description: "Enterprise artificial intelligence, intelligent automation, software engineering, and digital transformation company.",
 };
 

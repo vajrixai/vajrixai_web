@@ -7,7 +7,6 @@ import { MagneticLink } from "@/components/ui/magnetic-link";
 import { BrandMark } from "@/components/ui/brand";
 
 const links = [
-  ["Home", "#top"],
   ["About", "#about"],
   ["Expertise", "#expertise"],
   ["Industries", "#industries"],
@@ -16,8 +15,8 @@ const links = [
 
 function Mark() {
   return (
-    <a href="#top" aria-label="Vajrix AI home" className="group flex items-center">
-      <BrandMark className="w-10 transition-transform duration-500 group-hover:scale-105" priority />
+    <a href="#top" aria-label="Vajrix AI home" className="flex items-center">
+      <BrandMark className="w-10" priority />
     </a>
   );
 }
@@ -40,7 +39,7 @@ export function SiteHeader() {
             <a
               key={href}
               href={href}
-              className={`rounded-full px-3 py-2 text-[14px] font-medium transition-all hover:bg-white/[.05] hover:text-white ${href === "#top" ? "bg-white/[.055] text-white/80" : "text-white/48"}`}
+              className="rounded-full px-3 py-2 text-[14px] font-medium text-white/48 transition-all hover:bg-white/[.05] hover:text-white"
             >
               {label}
             </a>

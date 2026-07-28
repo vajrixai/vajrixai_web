@@ -42,7 +42,7 @@ export function Hero() {
         <div className="flex min-w-0 max-w-[680px] flex-col items-start text-left">
           <h1
             aria-label="Vajrix AI"
-            className="font-nasalization flex max-w-full items-baseline overflow-hidden text-[clamp(3.35rem,6.1vw,6.2rem)] leading-[.9] tracking-[.005em] [perspective:800px]"
+            className="font-orbitron flex max-w-full items-baseline overflow-visible text-[clamp(3.1rem,5.55vw,5.75rem)] leading-[1.08] tracking-[.150em] [perspective:800px]"
           >
             <span aria-hidden="true" className="inline-flex">
               {brandLetters.map((letter, index) => (
@@ -61,11 +61,11 @@ export function Hero() {
                 </motion.span>
               ))}
             </span>
-            <span aria-hidden="true" className="ml-[.16em] inline-flex brand-gradient-text">
+            <span aria-hidden="true" className="ml-[.16em] inline-flex">
               {aiLetters.map((letter, index) => (
                 <motion.span
                   key={`${letter}-${index}`}
-                  className="inline-block origin-bottom"
+                  className="brand-gradient-text inline-block origin-bottom"
                   initial={{ y: "112%", rotateX: -75, opacity: 0, filter: "blur(10px)" }}
                   animate={{ y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" }}
                   transition={{

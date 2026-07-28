@@ -5,6 +5,7 @@ import {
   ChartNoAxesCombined,
   CloudCog,
   Code2,
+  Network,
   RefreshCw,
   Workflow,
 } from "lucide-react";
@@ -18,6 +19,7 @@ export const expertise = [
   { title: "Software Development", desc: "Purpose-built software engineered for clarity and longevity.", icon: Code2 },
   { title: "Data & Analytics", desc: "Connected data foundations that turn information into action.", icon: ChartNoAxesCombined },
   { title: "Cloud Solutions", desc: "Flexible cloud systems designed for performance and control.", icon: CloudCog },
+  { title: "Connected expertise", desc: "Strategy, intelligence, and engineering. Working as one.", icon: Network },
 ] as const;
 
 export const industries = [

@@ -17,7 +17,8 @@ function ExpertiseCard({ item, index }: { item: (typeof expertise)[number]; inde
     event.currentTarget.style.setProperty("--card-y", `${event.clientY - rect.top}px`);
   }
 
-  const featured = index === 0 || index === 5 || index === 13;
+  const featured = index === 0 || index === 5 || index === 8;
+  const statementCard = index === 8;
 
   return (
     <motion.article
@@ -31,19 +32,38 @@ function ExpertiseCard({ item, index }: { item: (typeof expertise)[number]; inde
     >
       <div className="absolute inset-x-6 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-[#7ddfff] via-[#3157ff] to-[#9747ff] transition-transform duration-700 group-hover:scale-x-100" />
       <div className="flex h-full flex-col justify-between gap-14">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start">
           <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[.035] text-white/60 transition-all duration-500 group-hover:border-[#4b72ff]/45 group-hover:text-[#c8efff]">
             <Icon aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={1.4} />
           </span>
-          <span className="font-mono text-[10px] tracking-[.15em] text-white/25">{String(index + 1).padStart(2, "0")}</span>
         </div>
-        <div className="flex items-end justify-between gap-5">
-          <div>
-            <h3 className={`max-w-md font-medium tracking-[-.035em] ${featured ? "text-2xl sm:text-[1.75rem]" : "text-xl"}`}>{item.title}</h3>
-            <p className="mt-3 max-w-lg text-sm leading-6 text-white/42 transition-colors duration-500 group-hover:text-white/58">{item.desc}</p>
+        {statementCard ? (
+          <div className="flex items-end justify-between gap-5">
+            <div>
+              <p className="mb-4 font-mono text-[10px] uppercase tracking-[.18em] text-[#7ddfff]/70">
+                {item.title}
+              </p>
+              <h3
+                aria-label={item.desc}
+                className="max-w-[670px] text-[clamp(1.85rem,3.2vw,3rem)] font-medium leading-[.98] tracking-[-.055em] text-[#f7f8ff]"
+              >
+                Strategy, intelligence,{" "}
+                <span className="text-white/30">and engineering.</span>
+                <br />
+                Working as one.
+              </h3>
+            </div>
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0 text-white/20 transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white" />
           </div>
-          <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0 text-white/20 transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white" />
-        </div>
+        ) : (
+          <div className="flex items-end justify-between gap-5">
+            <div>
+              <h3 className={`max-w-md font-medium tracking-[-.035em] ${featured ? "text-2xl sm:text-[1.75rem]" : "text-xl"}`}>{item.title}</h3>
+              <p className="mt-3 max-w-lg text-sm leading-6 text-white/42 transition-colors duration-500 group-hover:text-white/58">{item.desc}</p>
+            </div>
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0 text-white/20 transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white" />
+          </div>
+        )}
       </div>
     </motion.article>
   );

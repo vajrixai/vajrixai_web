@@ -18,7 +18,6 @@ export function SiteFooter() {
           <a href="#top" aria-label="Vajrix AI home" className="inline-flex items-center gap-3">
             <BrandLockup />
           </a>
-          <p className="mt-5 max-w-xs text-sm leading-6 text-white/38">Intelligent technology. Enterprise rigor. Lasting impact.</p>
         </div>
         <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-12 gap-y-4 sm:grid-cols-3">
           {footerLinks.map(([label, href]) => (
@@ -29,7 +28,7 @@ export function SiteFooter() {
       <div className="flex flex-col gap-5 pt-7 text-[11px] text-white/30 sm:flex-row sm:items-center sm:justify-between">
         <p>© 2026 Vajrix AI. Intelligence, engineered.</p>
         <div className="flex items-center gap-6">
-          <a href="mailto:hello@vajrix.ai" className="transition-colors hover:text-white">hello@vajrix.ai</a>
+          <a href="mailto:team@vajrixai.in" className="transition-colors hover:text-white">team@vajrixai.in</a>
           <a href="#top" aria-label="Back to top" className="flex items-center gap-2 transition-colors hover:text-white">Back to top <ArrowUp className="h-3 w-3" /></a>
         </div>
       </div>

@@ -35,8 +35,8 @@ export function Contact() {
             <p className="mt-8 max-w-xl text-base leading-7 text-white/48 sm:text-lg">Tell us where you&apos;re headed. We&apos;ll bring the product, intelligence, and engineering perspective to help you get there.</p>
           </div>
           <div className="flex flex-col items-start gap-5 md:items-end">
-            <MagneticLink href="mailto:hello@vajrix.ai" className="min-h-14 px-8 text-base">hello@vajrix.ai</MagneticLink>
-            <a href="mailto:hello@vajrix.ai?subject=Project%20inquiry" className="group flex items-center gap-2 text-sm text-white/45 transition-colors hover:text-white">
+            <MagneticLink href="mailto:team@vajrixai.in" className="min-h-14 px-8 text-base">team@vajrixai.in</MagneticLink>
+            <a href="mailto:team@vajrixai.in?subject=Project%20inquiry" className="group flex items-center gap-2 text-sm text-white/45 transition-colors hover:text-white">
               Share a project brief <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </div>

@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { HomePage } from "@/components/home-page";
+import { Preloader } from "@/components/ui/preloader";
 
 const Scene3D = dynamic(() => import("@/components/Scene3D"), {
   ssr: false,
@@ -11,6 +12,7 @@ const Scene3D = dynamic(() => import("@/components/Scene3D"), {
 export default function Page() {
   return (
     <div className="relative isolate">
+      <Preloader />
       <Scene3D />
       <HomePage />
     </div>

@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { MagneticLink } from "@/components/ui/magnetic-link";
-import { BrandLockup } from "@/components/ui/brand";
+import { BrandMark } from "@/components/ui/brand";
 
 const links = [
   ["Home", "#top"],
@@ -16,8 +16,8 @@ const links = [
 
 function Mark() {
   return (
-    <a href="#top" aria-label="Vajrix AI home" className="group flex items-center gap-3">
-      <BrandLockup compact priority />
+    <a href="#top" aria-label="Vajrix AI home" className="group flex items-center">
+      <BrandMark className="w-10 transition-transform duration-500 group-hover:scale-105" priority />
     </a>
   );
 }
